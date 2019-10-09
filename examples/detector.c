@@ -558,7 +558,7 @@ void validate_detector_recall(char *cfgfile, char *weightfile)
     }
 }
 
-
+// 使用目标检测模型测试指定的图片，在图形上绘制预测的边界框
 void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filename, float thresh, float hier_thresh, char *outfile, int fullscreen)
 {
     list *options = read_data_cfg(datacfg);

@@ -55,6 +55,7 @@ void do_nms_obj(detection *dets, int total, int classes, float thresh)
 }
 
 
+// 非极大值抑制(NMS)，去除冗余边界框
 void do_nms_sort(detection *dets, int total, int classes, float thresh)
 {
     int i, j, k;

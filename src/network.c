@@ -493,7 +493,7 @@ void top_predictions(network *net, int k, int *index)
     top_k(net->output, net->outputs, k, index);
 }
 
-
+// 进行一次预测操作，将输入和输出保存到模型内部变量
 float *network_predict(network *net, float *input)
 {
     network orig = *net;
@@ -523,6 +523,7 @@ int num_detections(network *net, float thresh)
     return s;
 }
 
+// 计算符合阈值要求的预测边框数，并创建对应的数据结构
 detection *make_network_boxes(network *net, float thresh, int *num)
 {
     layer l = net->layers[net->n - 1];
@@ -539,6 +540,7 @@ detection *make_network_boxes(network *net, float thresh, int *num)
     return dets;
 }
 
+// 将模型预测的边界框数据填充到数据结构
 void fill_network_boxes(network *net, int w, int h, float thresh, float hier, int *map, int relative, detection *dets)
 {
     int j;
@@ -559,6 +561,7 @@ void fill_network_boxes(network *net, int w, int h, float thresh, float hier, in
     }
 }
 
+// 读取模型预测的边界框输出，将其填充到数据结构中并返回
 detection *get_network_boxes(network *net, int w, int h, float thresh, float hier, int *map, int relative, int *num)
 {
     detection *dets = make_network_boxes(net, thresh, num);
