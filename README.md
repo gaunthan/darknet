@@ -13,7 +13,7 @@ Firstly, you need to clone this probject and build it:
 ```sh
 git clone https://github.com/gaunthan/darknet.git
 cd darknet
-make -j8
+./build.sh # or make -j8
 ```
 
 Then you can run `./darknet` to play with a lot of functionalities.
