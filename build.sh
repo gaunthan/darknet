@@ -20,7 +20,7 @@ else
 fi
 
 # Check wheter the system has OpenCV or not
-pkg-config opencv
+pkg-config opencv >> /dev/null 2>&1
 if [[ "$?" = "0" ]]; then
     OPENCV=1
 else
@@ -39,7 +39,7 @@ echo -n "Building darknet..."
 LOGFILE="build.log"
 rm -f ${LOGFILE}
 
-make GPU=${GPU} CUDNN=${CUDNN} OPENCV=${OPENCV} OPENMP=${OPENMP} DEBUG=${DEBUG} -j >> ${LOGFILE}
+make GPU=${GPU} CUDNN=${CUDNN} OPENCV=${OPENCV} OPENMP=${OPENMP} DEBUG=${DEBUG} -j >> ${LOGFILE} 2>&1
 
 if [[ "$?" = "0" ]]; then
     echo "OK"
