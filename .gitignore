@@ -20,6 +20,7 @@ darknet
 .fuse*
 libdarknet.*
 weights/
+build.log
 
 # OS Generated #
 .DS_Store*
