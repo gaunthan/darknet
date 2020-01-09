@@ -4,7 +4,7 @@ OPENMP=1
 DEBUG=0
 
 # Check wheter the system has GPU or not
-which nvidia-smi >> /dev/null 2&>1
+which nvidia-smi >> /dev/null 2>&1
 if [[ "$?" = "0" ]]; then
     GPU=1
 else
@@ -12,7 +12,7 @@ else
 fi
 
 # Check wheter the system has cuDNN or not
-locate libcudnn.so --quiet
+locate libcudnn.so >> /dev/null 2>&1
 if [[ "$?" = "0" ]]; then
     CUDNN=1
 else
@@ -27,11 +27,24 @@ else
     OPENCV=0
 fi
 
-make clean >> /dev/null 2&>1
+make clean >> /dev/null 2>&1
 
 echo "=========================================================================="
 echo "Compiling options set as: "
 echo "GPU=${GPU} CUDNN=${CUDNN} OPENCV=${OPENCV} OPENMP=${OPENMP} DEBUG=${DEBUG}"
 echo "=========================================================================="
+echo ""
+echo -n "Building darknet..."
 
-make GPU=${GPU} CUDNN=${CUDNN} OPENCV=${OPENCV} OPENMP=${OPENMP} DEBUG=${DEBUG} -j
+LOGFILE="build.log"
+rm -f ${LOGFILE}
+
+make GPU=${GPU} CUDNN=${CUDNN} OPENCV=${OPENCV} OPENMP=${OPENMP} DEBUG=${DEBUG} -j >> ${LOGFILE}
+
+if [[ "$?" = "0" ]]; then
+    echo "OK"
+else
+    echo "FAILED"
+    echo "Some errors happened, please check ${LOGFILE}"
+fi
+
